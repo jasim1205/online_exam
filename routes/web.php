@@ -23,7 +23,7 @@ Route::middleware(['checkauth'])->prefix('student')->group(function () {
 
 Route::middleware(['checkrole'])->prefix('admin')->group(function(){
     Route::resource('user', user::class);
-    Route::get('profile', [user::class, 'profile'])->name('user_profile');
+    Route::get('profile', [user::class, 'profile'])->name('user.profile');
     Route::resource('role', role::class);
     Route::get('permission/{role}', [permission::class,'index'])->name('permission.list');
     Route::post('permission/{role}', [permission::class,'save'])->name('permission.save');

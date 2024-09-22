@@ -78,7 +78,7 @@
                         <span>Soeng Souy</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{route('user_profile')}}">My Profile</a>
+                        <a class="dropdown-item" href="{{route('user.profile')}}">My Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="{{route('logOut')}}">Logout</a>
                     </div>
