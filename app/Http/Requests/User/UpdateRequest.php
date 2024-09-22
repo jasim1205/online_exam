@@ -27,8 +27,6 @@ class UpdateRequest extends FormRequest
             'userName'=>'required',
             'EmailAddress'=>'nullable|unique:users,email,'.$id,
             'contactNumber'=>'required|unique:users,contact_no,'.$id,
-            'employee_id'=>'required|string|max:12|unique:users,employee_id,'.$id,
-            'designation'=>'required|string||max:50',
         ];
     }
 }

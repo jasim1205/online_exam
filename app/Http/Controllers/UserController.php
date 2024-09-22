@@ -24,6 +24,11 @@ class UserController extends Controller
         return view('user.index',compact('data'));
     }
 
+    public function profile(){
+        $profile = User::find(currentUserId());
+        return view('user.profile',compact('profile'));
+    }
+
     public function employees()
     {
         $employees = User::where('role_id', 2)->orderBy('created_at', 'desc')->paginate(12); 
@@ -51,10 +56,8 @@ class UserController extends Controller
             $data->name=$request->userName;
             $data->email=$request->EmailAddress;
             $data->contact_no=$request->contactNumber;
-            $data->employee_id=$request->employee_id;
             $data->role_id=$request->roleId;
             $data->status=$request->status;
-            $data->designation=$request->designation;
             $data->full_access=$request->fullAccess;
             $data->password=Hash::make($request->password);
             $data->remember_token = Str::random(60);
@@ -99,14 +102,13 @@ class UserController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         try{
+            // dd($request->all());
             $data=User::findOrFail(encryptor('decrypt',$id));
             $data->name=$request->userName;
             $data->email=$request->EmailAddress;
             $data->contact_no=$request->contactNumber;
-            $data->employee_id=$request->employee_id;
             $data->role_id=$request->roleId;
             $data->status=$request->status;
-            $data->designation=$request->designation;
             $data->full_access=$request->fullAccess;
             if($request->password)
                 $data->password=Hash::make($request->password);

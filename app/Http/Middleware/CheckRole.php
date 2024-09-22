@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Permission;
 
 class CheckRole
 {

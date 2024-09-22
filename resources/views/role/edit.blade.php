@@ -4,14 +4,24 @@
 @section('page',trans('Update'))
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-             <div class="card-header">
-                <h4 class="card-title">Edit Role</h4>
-             </div>
+<div class="page-wrapper">
+        <!-- Page Content -->
+        <div class="content container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Role Update</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+            <div class="card">
                 <div class="card-body">
-                    <form class="form" method="post" action="{{route('role.update',encryptor('encrypt',$role->id))}}">
+                     <form class="form" method="post" action="{{route('role.update',encryptor('encrypt',$role->id))}}">
                         @csrf
                         @method('PATCH')
                         <input type="hidden" name="uptoken" value="{{encryptor('encrypt',$role->id)}}">
@@ -45,5 +55,5 @@
             </div>
         </div>
     </div>
-</div>
+
 @endsection

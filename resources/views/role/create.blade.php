@@ -2,13 +2,23 @@
 @section('title',trans('Role'))
 @section('page',trans('Create'))
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Add New Role</h4>
+
+    <div class="page-wrapper">
+        <!-- Page Content -->
+        <div class="content container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Role Add</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-           
+            <!-- /Page Header -->
+            <div class="card">
                 <div class="card-body">
                     <form class="form" method="post" enctype="multipart/form-data" action="{{route('role.store')}}">
                         @csrf
@@ -39,8 +49,8 @@
                         
                     </form>
                 </div>
-            
+            </div>
         </div>
     </div>
-</div>
+
 @endsection

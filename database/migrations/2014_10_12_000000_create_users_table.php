@@ -21,6 +21,14 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('designation')->nullable();
             $table->date('date_of_birth')->nullable();
+            $table->integer('gender')->default(1)->comment('1=>Male,2=>Female,3=>Other');
+            $table->string('class')->nullable();
+            $table->string('emergency_contact')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('religeon')->nullable();
+            $table->string('school_name')->nullable();
+            $table->text('present_address')->nullable();
+            $table->text('parmanent_address')->nullable();
             $table->unsignedBigInteger('role_id')->index();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->string('password');

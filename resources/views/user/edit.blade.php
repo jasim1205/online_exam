@@ -89,27 +89,6 @@
                                         @endif
                                 </div>
                             </div>
-                            
-                            
-                            
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    <label for="employee_id">Employee ID<i class="text-danger">*</i></label>
-                                    <input type="text" id="employee_id" class="form-control" value="{{ old('employee_id')}}" name="employee_id" placeholder="EMP-242010" maxlength="12">
-                                    @if($errors->has('employee_id',$user->employee_id))
-                                        <span class="text-danger"> {{ $errors->first('employee_id') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    <label for="designation">Designation<i class="text-danger">*</i></label>
-                                    <input type="text" id="designation" class="form-control" value="{{ old('designation',$user->designation)}}" name="designation" placeholder="Sales Officer">
-                                    @if($errors->has('designation'))
-                                        <span class="text-danger"> {{ $errors->first('designation') }}</span>
-                                    @endif
-                                </div>
-                            </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="status">Status</label>

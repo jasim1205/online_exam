@@ -58,9 +58,9 @@ class AuthenticationController extends Controller
                     $this->setSession($user);
 
                     // Check if the current user's role is 'employee'
-                    if (currentUser() === 'employee') {
+                    if (currentUser() === 'student') {
                         $this->notice::success('Successfully Login');
-                        return redirect()->route('employee.dashboard'); // Redirect to employee dashboard
+                        return redirect()->route('student_dashboard'); // Redirect to employee dashboard
                     } else {
                         $this->notice::success('Successfully Login');
                         return redirect()->route('dashboard'); // Redirect to default dashboard

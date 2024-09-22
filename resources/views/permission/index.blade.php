@@ -13,28 +13,45 @@
   margin-bottom: 11px;
 }
 </style>
-<div class="row">
-    <div class="col-12">
-        <div class="card p-3">
-            <h4>{{$role->name}}</h4>
-            @php 
-                $routes=array();
-                $auto_accept=array('GET',"DELETE");
-                $permissions=array();
-                foreach($permission as $perm){
-                    $permissions[$perm->name]=$perm->name;
-                }
-            @endphp
-            @foreach(Illuminate\Support\Facades\Route::getRoutes() as $v)
-                @if($v->getPrefix()=="/admin")
-                    @php
-                        $rl=explode('.',$v->getName());
-                        if(isset($rl[1]))
-                            $routes[$rl[0]][]=array("method"=>$v->methods[0],"function"=>$rl[1]);
+
+    <div class="page-wrapper">
+        <!-- Page Content -->
+        <div class="content container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Permission</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+            <div class="card">
+                <div class="card-header">
+                    <h4>{{$role->name}}</h4>
+                    @php 
+                        $routes=array();
+                        $auto_accept=array('GET',"DELETE");
+                        $permissions=array();
+                        foreach($permission as $perm){
+                            $permissions[$perm->name]=$perm->name;
+                        }
                     @endphp
-                @endif
-            @endforeach
-            <form action="{{route('permission.save',encryptor('encrypt',$role->id))}}" method="post">
+                    @foreach(Illuminate\Support\Facades\Route::getRoutes() as $v)
+                        @if($v->getPrefix()=="/admin")
+                            @php
+                                $rl=explode('.',$v->getName());
+                                if(isset($rl[1]))
+                                    $routes[$rl[0]][]=array("method"=>$v->methods[0],"function"=>$rl[1]);
+                            @endphp
+                        @endif
+                    @endforeach
+                </div>
+                <div class="card-body">
+                     <form action="{{route('permission.save',encryptor('encrypt',$role->id))}}" method="post">
                 @csrf
                 <div class="row">
                 @forelse($routes as $k=>$r)
@@ -66,9 +83,10 @@
                     </div>
                 </div>
             </form>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push('scripts')
