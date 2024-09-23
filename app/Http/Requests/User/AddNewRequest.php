@@ -25,10 +25,9 @@ class AddNewRequest extends FormRequest
             'userName'=>'required|max:255',
             'roleId'=>'required|max:2',
             'contactNumber'=>'required|unique:users,contact_no',
-            'employee_id'=>'required|string|max:12|unique:users,employee_id',
+            'username'=>'required|string|unique:users,username',
             'EmailAddress'=>'required|unique:users,email',
-            'password'=>'required',
-            'designation'=>'required|string|max:50',
+            'password'=>['required','confirmed',Password::min(8)->mixedCase()->numbers()]
         ];
     }
 }

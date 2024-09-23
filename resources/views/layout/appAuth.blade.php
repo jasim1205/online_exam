@@ -14,7 +14,8 @@
 
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
-
+		
+    	<link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 		<!-- Fontawesome CSS -->
         <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css')}}">
 
@@ -41,7 +42,8 @@
 
 		<!-- jQuery -->
         <script src="{{ asset('assets/js/jquery-3.5.1.min.js')}}"></script>
-
+		 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+        {!! Toastr::message() !!}
 		<!-- Bootstrap Core JS -->
         <script src="{{ asset('assets/js/popper.min.js')}}"></script>
         <script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>

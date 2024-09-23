@@ -25,6 +25,8 @@ class AuthenticationController extends Controller
             $user->name=$request->FullName;
             $user->contact_no=$request->contact_no;
             $user->email=$request->EmailAddress;
+            $user->username=$request->username;
+            $user->gender=$request->gender;
             $user->password=Hash::make($request->password);
             $user->status=0;
             $user->role_id=2;
@@ -33,11 +35,11 @@ class AuthenticationController extends Controller
                 return redirect('login');
             }else
                 $this->notice::error('something wrong! Please try again');
-                return redirect('login');
+                return redirect('/');
         }catch(Exception $e){
             dd($e);
             $this->notice::error('something wrong! Please try again');
-            return redirect('login');
+            return redirect('/');
         }
 
     }
@@ -48,7 +50,7 @@ class AuthenticationController extends Controller
 
     public function signInCheck(SigninRequest $request){
         try{
-             $user = User::where('contact_no', $request->username)
+             $user = User::where('username', $request->username)
                     ->orWhere('email', $request->username)
                     ->first();
 
@@ -87,9 +89,9 @@ class AuthenticationController extends Controller
     public function setSession($user){
         return request()->session()->put([
                 'userId'=>encryptor('encrypt',$user->id),
-                'userName'=>encryptor('encrypt',$user->name),
+                'Name'=>encryptor('encrypt',$user->name),
+                'username'=>encryptor('encrypt',$user->username),
                 'role_id'=>encryptor('encrypt',$user->role_id),
-                'empID'=>encryptor('encrypt',$user->employee_id),
                 'accessType'=>encryptor('encrypt',$user->full_access),
                 'role'=>encryptor('encrypt',$user->role->name),
                 'roleIdentity'=>encryptor('encrypt',$user->role->identity),

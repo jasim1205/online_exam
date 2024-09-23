@@ -22,11 +22,11 @@
                             <div class="col">
                                 <label>Password</label>
                             </div>
-                            <div class="col-auto">
+                            {{-- <div class="col-auto">
                                 <a class="text-muted" href="forgot-password.html">
                                     Forgot password?
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                         <input type="password" class="form-control form-control-xl" name="password" placeholder="Password">
                         @if($errors->has('password'))
@@ -39,7 +39,7 @@
                         <button class="btn btn-primary account-btn" type="submit">Login</button>
                     </div>
                     <div class="account-footer">
-                        <p>Don't have an account yet? <a href="register.html">Register</a></p>
+                        <p>Don't have an account yet? <a href="{{route('register')}}">Register</a></p>
                     </div>
                 </form>
                 <!-- /Account Form -->
