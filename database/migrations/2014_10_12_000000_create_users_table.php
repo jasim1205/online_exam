@@ -23,7 +23,9 @@ return new class extends Migration
             $table->string('designation')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->integer('gender')->default(1)->comment('1=>Male,2=>Female,3=>Other');
-            $table->string('class')->nullable();
+            // $table->string('class')->nullable();
+            $table->unsignedBigInteger('class_id')->nullable();
+            $table->foreign('class_id')->references('id')->on('class_lists')->onDelete('cascade');
             $table->string('emergency_contact')->nullable();
             $table->string('nationality')->nullable();
             $table->string('religeon')->nullable();

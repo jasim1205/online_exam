@@ -14,6 +14,15 @@
                                 <li><a href="{{route('user.index')}}">Users</a></li>
                             </ul>
                         </li>
+                        <li class="submenu">
+                            <a href=""><i class="la la-cube"></i> <span> ACL</span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="{{route('classlist.index')}}">ClassList</a></li>
+                                <li><a href="{{route('subject.index')}}">Subject</a></li>
+                                <li><a href="{{route('examtype.index')}}">Exam-Type</a></li>
+                            </ul>
+                        </li>
                         <li class="menu-title">
                             <span>Employees</span>
                         </li>

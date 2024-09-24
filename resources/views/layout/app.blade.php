@@ -9,10 +9,10 @@
         content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>Dashboard - HRMS admin template</title>
+    <title>Online-Exam</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/images.png') }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
@@ -55,7 +55,7 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="index.html" class="logo" style="margin-top: 10px">
-                    <img src="{{ asset('assets/img/logo.png')}}" width="40" height="40" alt="">
+                    <img src="{{ asset('assets/img/images-removebg-preview.png')}}" width="100" height="40" alt="">
                 </a>
             </div>
             <!-- /Logo -->
