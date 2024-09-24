@@ -21,6 +21,7 @@
                                 <li><a href="{{route('classlist.index')}}">ClassList</a></li>
                                 <li><a href="{{route('subject.index')}}">Subject</a></li>
                                 <li><a href="{{route('examtype.index')}}">Exam-Type</a></li>
+                                <li><a href="{{route('exam.index')}}">Exam</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">

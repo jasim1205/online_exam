@@ -9,6 +9,7 @@ use App\Http\Controllers\PermissionController as permission;
 use App\Http\Controllers\ClassListController as classlist;
 use App\Http\Controllers\SubjectController as subject;
 use App\Http\Controllers\ExamTypeController as examtype;
+use App\Http\Controllers\ExamController as exam;
 
 Route::get('/register', [auth::class, 'signUpForm'])->name('register');
 Route::post('/register', [auth::class, 'signUpStore'])->name('register.store');
@@ -33,6 +34,7 @@ Route::middleware(['checkrole'])->prefix('admin')->group(function(){
     Route::resource('classlist', classlist::class);
     Route::resource('subject', subject::class);
     Route::resource('examtype', examtype::class);
+    Route::resource('exam', exam::class);
 });
 // Route::get('/', function () {
 //     return view('welcome');

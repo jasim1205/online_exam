@@ -25,7 +25,7 @@
 
     <!-- Chart CSS -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/morris/morris.css') }}">
-    
+
 	<!-- Datatable CSS -->
 	<link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css')}}">
 
@@ -38,6 +38,7 @@
 			<script src="assets/js/html5shiv.min.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+    @stack('styles')
         <style>
             .mobile-view{
                 margin-top: 15px;

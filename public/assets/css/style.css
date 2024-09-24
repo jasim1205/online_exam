@@ -184,10 +184,10 @@ a:focus {
 	outline: none;
 }
 .form-control {
-	border-color: #e3e3e3;
-    box-shadow: none;
-    font-size: 15px;
-    height: 44px;
+	background-color: #fbfbfb;
+    border: 1px solid #e6b8b8;
+    border-radius: 5px;
+    height: 35px;
 }
 .form-control:focus {
 	border-color: #ccc;
