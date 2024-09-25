@@ -47,32 +47,7 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-    //     $request->validate([
-    //     'title' => 'required|string|max:255',
-    //     'class_id' => 'required|integer',
-    //     'subject_id' => 'required|integer',
-    //     'examtype_id' => 'required|integer',
-    //     'total_marks' => 'required|integer',
-    //     'duration' => 'required|integer',
-    //     'start_deadline' => 'required|date',
-    //     'end_deadline' => 'required|date|after_or_equal:start_deadline',
-        
-    //     // MCQ questions validation (when examtype_id == 1)
-    //     'question.*' => 'required_if:examtype_id,1|string',
-    //     'option_a.*' => 'required_if:examtype_id,1|string',
-    //     'option_b.*' => 'required_if:examtype_id,1|string',
-    //     'option_c.*' => 'required_if:examtype_id,1|string',
-    //     'option_d.*' => 'required_if:examtype_id,1|string',
-    //     'option_ans.*' => 'required_if:examtype_id,1|in:1,2,3,4',
-        
-    //     // Descriptive questions validation (when examtype_id == 2)
-    //     'descriptive_question.*' => 'required_if:examtype_id,2|string',
-    //     'marks.*' => 'required|integer',
-    // ]);
-
-        
-        try{
-            // dd($request->all());
+       try {
             DB::beginTransaction();
             $exam = new Exam;
             $exam->title = $request->title;
@@ -83,38 +58,39 @@ class ExamController extends Controller
             $exam->duration = $request->duration;
             $exam->start_deadline = $request->start_deadline;
             $exam->end_deadline = $request->end_deadline;
+
             $questions = $request->question;
-            if($exam->save()){
-                if($exam->examtype_id == 1){
-                    if($questions){
-                        foreach($questions as $key => $question){
+
+            if ($exam->save()) {
+                if ($exam->examtype_id == 1) {
+                    if ($questions) {
+                        foreach ($questions as $key => $question) {
+                            // Save the question
                             $data = new Question;
                             $data->exam_id = $exam->id;
                             $data->question = $question;
-                            // $data->option_a = $request->option_a[$key];
-                            // $data->option_b = $request->option_b[$key];
-                            // $data->option_c = $request->option_c[$key];
-                            // $data->option_d = $request->option_d[$key];
-                            // $data->option_ans = $request->option_ans[$key];
-                           $data->marks = $request->marks[$key];
-                            //$data->save();
-                            if($data->save()){
-                                $options = $request->option_text;
-                                foreach($options as $index => $optionText){
-                                    $option = new QuestionOption;
-                                    $option->question_id = $data->id;
-                                    $option->option = $index + 1;
-                                    $option->option_text = $optionText;
-                                    $option->save();
-                                }
+                            $data->marks = $request->marks[$key];
+                            
+                            if ($data->save()) {
+                                // Ensure 4 options are saved for each question
+                                if (isset($request->option_text[$key])) {
+                                    $options = $request->option_text[$key]; // Get all options for the current question
+                                    for ($i = 0; $i < 4; $i++) {
+                                        // Save the options
+                                        $optionText = $options[$i] ?? ''; // Get the option text or empty string if not provided
+                                        $option = new QuestionOption;
+                                        $option->question_id = $data->id;
+                                        $option->option = $i + 1; // Option numbers (1 to 4)
+                                        $option->option_text = $optionText; // Option text from the request
+                                        $option->save();
+                                    }}
                             }
                         }
                     }
-                }else{
+                } else {
                     $descriptives = $request->descriptive_question;
-                    if($descriptives){
-                        foreach($descriptives as $key => $descriptive){
-
+                    if ($descriptives) {
+                        foreach ($descriptives as $key => $descriptive) {
                             $data = new Question;
                             $data->exam_id = $exam->id;
                             $data->descriptive_question = $descriptive;
@@ -125,17 +101,17 @@ class ExamController extends Controller
                 }
             }
 
-
             DB::commit();
-            $this->notice::success('Successfully Save');
+            $this->notice::success('Successfully Saved');
             return redirect()->route('exam.index');
-            // ->with($this->resMessageHtml(true,null,'Successfully Update'));
-        }catch(Exception $e){
-            dd($e);
-            DB::Rollback();
+            
+        } catch (Exception $e) {
+            DB::rollback();
             $this->notice::error('Please try again');
             return redirect()->back()->withInput();
         }
+
+
     }
 
     /**

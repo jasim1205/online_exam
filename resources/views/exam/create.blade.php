@@ -10,7 +10,7 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">Exam-Type Add</h3>
+                        <h3 class="page-title">Exam Add</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
                         </ul>
@@ -127,22 +127,22 @@
                             <div class="col-md-3 my-1">
                                 <label for="class">Option-A</label>
                                 {{-- <input type="hidden" name="option[]" value="A"> --}}
-                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[]">
+                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[0][]">
                             </div>
                             <div class="col-md-3 my-1">
                                 <label for="class">Option-B</label>
                                 {{-- <input type="hidden" name="option[]" value="B"> --}}
-                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[]">
+                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[0][]">
                             </div>
                             <div class="col-md-3 my-1">
                                 <label for="class">Option-C</label>
                                 {{-- <input type="hidden" name="option[]" value="C"> --}}
-                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[]">
+                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[0][]">
                             </div>
                             <div class="col-md-3 my-1">
                                 <label for="class">Option-D</label>
                                 {{-- <input type="hidden" name="option[]" value="D"> --}}
-                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[]">
+                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[0][]">
                             </div>
                             <div class="col-md-3 my-1">
                                 <label for="class">Answer</label>
@@ -198,19 +198,19 @@
                 </div>
                 <div class="col-md-3 my-1">
                     <label for="class">Option-A</label>
-                    <input type="text" id="" class="form-control" value="{{ old('option_a')}}" name="option_a[]">
+                    <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[${oldQuestionRowId}][]">
                 </div>
                 <div class="col-md-3 my-1">
                     <label for="class">Option-B</label>
-                    <input type="text" id="" class="form-control" value="{{ old('option_b')}}" name="option_b[]">
+                    <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[${oldQuestionRowId}][]">
                 </div>
                 <div class="col-md-3 my-1">
                     <label for="class">Option-C</label>
-                    <input type="text" id="" class="form-control" value="{{ old('option_c')}}" name="option_c[]">
+                    <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[${oldQuestionRowId}][]">
                 </div>
                 <div class="col-md-3 my-1">
                     <label for="class">Option-D</label>
-                    <input type="text" id="" class="form-control" value="{{ old('option_d')}}" name="option_d[]">
+                    <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[${oldQuestionRowId}][]">
                 </div>
                 <div class="col-md-3 my-1">
                     <label for="class">Answer</label>
@@ -234,7 +234,7 @@
                 </div>
             </div>`;
 
-        $('#AddQuestionRow').after(QuestionRow);
+        $('#AddQuestionRow').append(QuestionRow);
         oldQuestionRowId++;
         };
 
