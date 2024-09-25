@@ -7,6 +7,7 @@ use App\Models\ClassList;
 use App\Models\Subject;
 use App\Models\ExamType;
 use App\Models\Question;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 
@@ -19,6 +20,12 @@ class ExamController extends Controller
     {
         $exam = Exam::get();
         return view('exam.index',compact('exam'));
+    }
+
+    public function examlist(){
+        $user = User::find(CurrentUserId());
+        $exam = Exam::where('class_id',$user->class_id)->get();
+        return view('exam.studentexam',compact('user','exam'));
     }
 
     /**

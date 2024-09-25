@@ -23,6 +23,7 @@ Route::middleware(['checkauth'])->prefix('admin')->group(function () {
 Route::middleware(['checkauth'])->prefix('student')->group(function () {
     Route::get('dashboard', [dashboard::class, 'index'])->name('student_dashboard');
     Route::get('profile', [user::class, 'profile'])->name('profile');
+    Route::get('exam-list',[exam::class, 'examlist'])->name('student.exam');
 });
 
 Route::middleware(['checkrole'])->prefix('admin')->group(function(){
@@ -35,6 +36,7 @@ Route::middleware(['checkrole'])->prefix('admin')->group(function(){
     Route::resource('subject', subject::class);
     Route::resource('examtype', examtype::class);
     Route::resource('exam', exam::class);
+   
 });
 // Route::get('/', function () {
 //     return view('welcome');

@@ -105,4 +105,9 @@ class AuthenticationController extends Controller
         $this->notice::error('Successfully Logged Out!');
         return redirect('/');
     }
+
+    public function show(User $data)
+    {
+        return view('user.profile', compact('data')); 
+    }
 }
