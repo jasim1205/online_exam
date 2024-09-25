@@ -24,6 +24,7 @@ Route::middleware(['checkauth'])->prefix('student')->group(function () {
     Route::get('dashboard', [dashboard::class, 'index'])->name('student_dashboard');
     Route::get('profile', [user::class, 'profile'])->name('profile');
     Route::get('exam-list',[exam::class, 'examlist'])->name('student.exam');
+    Route::get('test/{id}',[exam::class, 'test'])->name('student.test');
 });
 
 Route::middleware(['checkrole'])->prefix('admin')->group(function(){

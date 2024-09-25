@@ -7,6 +7,7 @@ use App\Models\ClassList;
 use App\Models\Subject;
 use App\Models\ExamType;
 use App\Models\Question;
+use App\Models\QuestionOption;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
@@ -28,6 +29,7 @@ class ExamController extends Controller
         return view('exam.studentexam',compact('user','exam'));
     }
 
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -89,13 +91,23 @@ class ExamController extends Controller
                             $data = new Question;
                             $data->exam_id = $exam->id;
                             $data->question = $question;
-                            $data->option_a = $request->option_a[$key];
-                            $data->option_b = $request->option_b[$key];
-                            $data->option_c = $request->option_c[$key];
-                            $data->option_d = $request->option_d[$key];
-                            $data->option_ans = $request->option_ans[$key];
-                            $data->marks = $request->marks[$key];
-                            $data->save();
+                            // $data->option_a = $request->option_a[$key];
+                            // $data->option_b = $request->option_b[$key];
+                            // $data->option_c = $request->option_c[$key];
+                            // $data->option_d = $request->option_d[$key];
+                            // $data->option_ans = $request->option_ans[$key];
+                           $data->marks = $request->marks[$key];
+                            //$data->save();
+                            if($data->save()){
+                                $options = $request->option_text;
+                                foreach($options as $index => $optionText){
+                                    $option = new QuestionOption;
+                                    $option->question_id = $data->id;
+                                    $option->option = $index + 1;
+                                    $option->option_text = $optionText;
+                                    $option->save();
+                                }
+                            }
                         }
                     }
                 }else{
@@ -156,5 +168,10 @@ class ExamController extends Controller
     public function destroy(Exam $exam)
     {
         //
+    }
+    public function test($id){
+        $user = User::find(CurrentUserId());
+        $test = Exam::findOrFail(encryptor('decrypt',$id));
+        return view('exam.studenttest',compact('test','user'));
     }
 }

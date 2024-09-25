@@ -53,9 +53,15 @@
                                         <td>{{$p->end_deadline}}</td>
                                         <td class="white-space-nowrap">
                                             <div class="btn-group" role="group">
-                                                <a href="{{route('exam.edit',encryptor('encrypt',$p->id))}}">
-                                                <i class="fa fa-edit m-1"></i>
-                                                </a>
+                                                @if(now()->between($p->start_deadline, $p->end_deadline))
+                                                    <a href="{{ route('student.test', encryptor('encrypt', $p->id)) }}">
+                                                        Exam
+                                                    </a>
+                                                @else
+                                                    <a href="javascript:void(0)" class="disabled" style="pointer-events: none; color: rgb(230, 22, 22);">
+                                                        Exam (Deadline Close)
+                                                    </a>
+                                                @endif
                                                 {{-- <form id="deleteForm_{{ $p->id }}" action="{{ route('exam.destroy', encryptor('encrypt', $p->id)) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')

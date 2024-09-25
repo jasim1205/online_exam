@@ -126,19 +126,23 @@
                             </div>
                             <div class="col-md-3 my-1">
                                 <label for="class">Option-A</label>
-                                <input type="text" id="" class="form-control" value="{{ old('option_a')}}" name="option_a[]">
+                                {{-- <input type="hidden" name="option[]" value="A"> --}}
+                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[]">
                             </div>
                             <div class="col-md-3 my-1">
                                 <label for="class">Option-B</label>
-                                <input type="text" id="" class="form-control" value="{{ old('option_b')}}" name="option_b[]">
+                                {{-- <input type="hidden" name="option[]" value="B"> --}}
+                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[]">
                             </div>
                             <div class="col-md-3 my-1">
                                 <label for="class">Option-C</label>
-                                <input type="text" id="" class="form-control" value="{{ old('option_c')}}" name="option_c[]">
+                                {{-- <input type="hidden" name="option[]" value="C"> --}}
+                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[]">
                             </div>
                             <div class="col-md-3 my-1">
                                 <label for="class">Option-D</label>
-                                <input type="text" id="" class="form-control" value="{{ old('option_d')}}" name="option_d[]">
+                                {{-- <input type="hidden" name="option[]" value="D"> --}}
+                                <input type="text" id="" class="form-control" value="{{ old('option_text')}}" name="option_text[]">
                             </div>
                             <div class="col-md-3 my-1">
                                 <label for="class">Answer</label>

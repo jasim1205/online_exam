@@ -48,4 +48,7 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo(Role::class);
     }
+    public function submission(){
+        return $this->hasMany(SubmissionTable::class, 'user_id','id');
+    }
 }

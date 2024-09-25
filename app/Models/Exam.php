@@ -27,4 +27,7 @@ class Exam extends Model
     {
         return $this->belongsTo(Subject::class, 'subject_id', 'id');
     }
+    public function submission(){
+        return $this->hasMany(SubmissionTable::class, 'exam_id','id');
+    }
 }
