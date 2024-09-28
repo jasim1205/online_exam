@@ -10,7 +10,9 @@ class Exam extends Model
 {
     use HasFactory;
 
-   
+   protected $casts = [
+    'end_deadline' => 'datetime',
+];
     /**
      * Get the user that owns the Exam
      *
