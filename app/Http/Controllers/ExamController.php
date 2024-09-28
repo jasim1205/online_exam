@@ -8,6 +8,8 @@ use App\Models\Subject;
 use App\Models\ExamType;
 use App\Models\Question;
 use App\Models\QuestionOption;
+use App\Models\SubmissionTable;
+use App\Models\AnswerSubmit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
@@ -69,6 +71,7 @@ class ExamController extends Controller
                             $data = new Question;
                             $data->exam_id = $exam->id;
                             $data->question = $question;
+                            $data->option_ans = $request->option_ans[$key];
                             $data->marks = $request->marks[$key];
                             
                             if ($data->save()) {
@@ -148,6 +151,97 @@ class ExamController extends Controller
     public function test($id){
         $user = User::find(CurrentUserId());
         $test = Exam::findOrFail(encryptor('decrypt',$id));
-        return view('exam.studenttest',compact('test','user'));
+        $questions = Question::where('exam_id',$test->id)->get();
+        return view('exam.studenttest',compact('test','user','questions'));
     }
+
+    // public function student_submit(Request $request){
+    //     try {
+    //         DB::beginTransaction();
+            
+    //         $data = new SubmissionTable;
+    //         $data->user_id = currentUserId();
+    //         $data->exam_id = $request->exam_id;
+    //         $data->date = now();
+
+    //         $questions = $request->question_id;
+    //         if ($data->save()) {
+    //             if ($questions) {
+    //                 foreach ($questions as $key => $value) {
+    //                     $answer = new AnswerSubmit;
+    //                     $answer->submission_id = $data->id;
+    //                     $answer->question_id = $value;
+
+    //                     if (isset($request->option_id[$key])) {
+    //                         $answer->option_id = $request->option_id[$key];
+    //                     } else {
+    //                         $answer->option_id = null; // Option was not selected
+    //                     }
+    //                     $answer->save();
+    //                 }
+    //             }
+    //         }
+
+    //         DB::commit();
+    //         $this->notice::success('Successfully Saved');
+    //         return redirect()->route('exam.index');
+            
+    //     } catch (Exception $e) {
+    //         DB::rollback();
+    //         $this->notice::error('Please try again');
+    //         return redirect()->back()->withInput();
+    //     }
+    // }
+
+    public function student_submit(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            // Validate that question_id and option_id are arrays
+            $request->validate([
+                'question_id' => 'required|array',
+                'option_id' => 'nullable|array',
+            ]);
+
+            $data = new SubmissionTable;
+            $data->user_id = currentUserId();
+            $data->exam_id = $request->exam_id;
+            $data->date = now();
+
+            // Cast question_id and option_id as arrays (ensure they are arrays)
+            $questions = $request->input('question_id', []);
+            $options = $request->input('option_id', []);
+
+            if ($data->save()) {
+                if ($questions) {
+                    foreach ($questions as $key => $question_id) {
+                        $answer = new AnswerSubmit;
+                        $answer->submission_id = $data->id;
+                        $answer->question_id = $question_id;
+
+                        // Set option_id if it exists
+                        if (isset($options[$key])) {
+                            $answer->option_id = $options[$key];
+                        } else {
+                            $answer->option_id = null; // Option was not selected
+                        }
+                        $answer->save();
+                    }
+                }
+            }
+
+            DB::commit();
+            $this->notice::success('Successfully Saved');
+            return redirect()->route('student.test');
+            
+        } catch (Exception $e) {
+            DB::rollback();
+            $this->notice::error('Please try again');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    
+
 }

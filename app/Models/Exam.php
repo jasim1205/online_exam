@@ -10,6 +10,7 @@ class Exam extends Model
 {
     use HasFactory;
 
+   
     /**
      * Get the user that owns the Exam
      *

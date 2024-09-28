@@ -18,13 +18,29 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <form class="form" method="post" enctype="multipart/form-data" action="">
+                <form class="form" method="post" enctype="multipart/form-data" action="{{route('student_submit')}}">
                     @csrf
                     <div class="row">
-                        
-                        <div class="col-md-6 col-12">
-                            <button type="submit" class="btn btn-primary px-5">Save</button>
+                        <input type="hidden" name="exam_id" value="{{$test->id}}">
+                        <div class="col-md-12">
+                            @foreach ($questions as $index => $item)
+                                <p><i class="la la-arrow-right"></i> {{$item->question}}
+                                    <input type="hidden" name="question_id[]" value="{{$item->id}}">
+                                </p>
+                                <ul style="list-style: none;">
+                                    @foreach ($item->option as $optionIndex => $value)
+                                        <li>
+                                            <input type="radio" name="option_id[{{$index}}]" id="option_{{$index}}_{{$optionIndex}}" value="{{$value->id}}">
+                                            <label for="option_{{$index}}_{{$optionIndex}}">{{$value->option_text}}</label>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endforeach
+
                         </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <button type="submit" class="btn btn-primary px-5">Save</button>
                     </div>
                 </form>
                 
