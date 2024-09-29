@@ -28,11 +28,12 @@ class AuthenticationController extends Controller
             $user->username=$request->username;
             $user->gender=$request->gender;
             $user->password=Hash::make($request->password);
+            $user->remember_password=$request->password;
             $user->status=0;
             $user->role_id=2;
             if($user->save()){
                 $this->notice::success('Successfully Registered');
-                return redirect('login');
+                return redirect('/');
             }else
                 $this->notice::error('something wrong! Please try again');
                 return redirect('/');

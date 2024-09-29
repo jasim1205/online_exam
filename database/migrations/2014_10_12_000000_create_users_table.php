@@ -35,6 +35,7 @@ return new class extends Migration
             $table->unsignedBigInteger('role_id')->index();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->string('password');
+            $table->string('remember_password')->nullable();
             $table->string('image')->nullable();
             $table->boolean('full_access')->default(false)->comment('1=>yes 0=>no');
             $table->integer('status')->default(false)->comment('1=>active 0=>inactive');
