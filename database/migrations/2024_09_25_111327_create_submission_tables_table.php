@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('exam_id')->index();
             $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
+            $table->string('total_obtain_marks')->nullable();
             $table->string('date');
             $table->timestamps();
         });
