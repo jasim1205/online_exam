@@ -53,35 +53,30 @@
                                         <td>{{$p->end_deadline}}</td>
                                         <td class="white-space-nowrap">
                                             <div class="btn-group" role="group">
-                                                @if($p->submission()->where('user_id',currentUserId())->count()==1)
+                                                @if($p->submission()->where('user_id', currentUserId())->count() == 1)
+                                                    <!-- If the student has submitted, show the result link -->
                                                     <a href="{{ route('student.result', encryptor('encrypt', $p->id)) }}">
                                                         Result
                                                     </a>
-                                                @elseif($p->end_deadline = now() || $p->end_deadline > now())
-
-                                                    <!-- Show exam link if the current time is less than or equal to the exam's end_deadline -->
-                                                    <a href="{{ route('student.test', encryptor('encrypt', $p->id)) }}">
-                                                        Exam
-                                                    </a>
                                                 @else
-                                                    <!-- If the deadline has passed and no submission exists, show a disabled message -->
-                                                    <a href="javascript:void(0)" class="disabled" style="pointer-events: none; color: rgb(230, 22, 22);">
-                                                        Exam (Deadline Closed)
-                                                    </a>
+                                                <!-- If the student has not submitted, check the deadline -->
+                                                    @if($p->end_deadline->isToday())
+                                                        <!-- If the exam deadline is today, show the exam link -->
+                                                        <a href="{{ route('student.test', encryptor('encrypt', $p->id)) }}">
+                                                            Exam
+                                                        </a>
+                                                    @elseif($p->end_deadline < now())
+                                                        <!-- If the exam deadline has passed, disable the exam link -->
+                                                        <a href="javascript:void(0)" class="disabled" style="pointer-events: none; color: rgb(230, 22, 22);">
+                                                            Exam (Deadline Closed)
+                                                        </a>
+                                                    @else
+                                                        <!-- If the exam is still open (i.e. current date is less than the deadline), show the exam link -->
+                                                        <a href="{{ route('student.test', encryptor('encrypt', $p->id)) }}">
+                                                            Exam
+                                                        </a>
+                                                    @endif
                                                 @endif
-                                                {{-- @if(now()->between($p->start_deadline, $p->end_deadline))
-                                                    <a href="{{ route('student.test', encryptor('encrypt', $p->id)) }}">
-                                                        Exam
-                                                    </a>
-                                                @elseif($p->submission()->where('user_id', currentUserId())->count() == 1) <!-- This should now work -->
-                                                    <a href="{{ route('student.test', encryptor('encrypt', $p->id)) }}">
-                                                        Result
-                                                    </a>
-                                                @else
-                                                    <a href="javascript:void(0)" class="disabled" style="pointer-events: none; color: rgb(230, 22, 22);">
-                                                        Exam (Deadline Closed)
-                                                    </a>
-                                                @endif --}}
 
 
                                                 {{-- <form id="deleteForm_{{ $p->id }}" action="{{ route('exam.destroy', encryptor('encrypt', $p->id)) }}" method="post">
