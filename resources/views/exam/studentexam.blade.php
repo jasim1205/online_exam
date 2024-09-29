@@ -54,7 +54,7 @@
                                         <td class="white-space-nowrap">
                                             <div class="btn-group" role="group">
                                                 @if($p->submission()->where('user_id',currentUserId())->count()==1)
-                                                    <a href="{{ route('student.test', encryptor('encrypt', $p->id)) }}">
+                                                    <a href="{{ route('student.result', encryptor('encrypt', $p->id)) }}">
                                                         Result
                                                     </a>
                                                 @elseif($p->end_deadline = now() || $p->end_deadline > now())

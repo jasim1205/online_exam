@@ -308,6 +308,19 @@ class ExamController extends Controller
         }
     }
 
+    public function student_result($id){
+        $user = User::find(CurrentUserId());
+        $test = Exam::findOrFail(encryptor('decrypt',$id));
+        $questions = Question::where('exam_id',$test->id)->get();
+         // Fetch the user's submission
+        $submit = SubmissionTable::where('user_id', currentUserId())->first();
+        
+        // Fetch the user's submitted answers
+        $answers = AnswerSubmit::where('submission_id', $submit->id)->get()->keyBy('question_id'); // Key by question_id for easy lookup
+        return view('exam.studentresult',compact('test','user','questions','submit','answers'));
+    }
+
+
     
 
 }

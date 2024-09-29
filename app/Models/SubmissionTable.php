@@ -16,6 +16,7 @@ class SubmissionTable extends Model
         return $this->belongsTo(Exam::class,'exam_id','id');
     }
     public function answer(){
-        return $this->hasOne(AnswerSubmit::class,'submission_id','id');
+        return $this->hasMany(AnswerSubmit::class,'submission_id','id');
     }
+
 }

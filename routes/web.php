@@ -26,6 +26,7 @@ Route::middleware(['checkauth'])->prefix('student')->group(function () {
     Route::get('exam-list',[exam::class, 'examlist'])->name('student.exam');
     Route::get('test/{id}',[exam::class, 'test'])->name('student.test');
     Route::post('test',[exam::class, 'student_submit'])->name('student_submit');
+    Route::get('result/{id}',[exam::class, 'student_result'])->name('student.result');
 });
 
 Route::middleware(['checkrole'])->prefix('admin')->group(function(){
