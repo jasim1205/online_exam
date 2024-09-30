@@ -24,7 +24,9 @@ Route::middleware(['checkauth'])->prefix('admin')->group(function () {
 Route::middleware(['checkauth'])->prefix('student')->group(function () {
     Route::get('dashboard', [dashboard::class, 'index'])->name('student_dashboard');
     Route::get('userProfile', [auth::class, 'show'])->name('userProfile');
-    Route::get('profile', [user::class, 'profile'])->name('profile');
+    Route::get('profile', [user::class, 'student_profile'])->name('profile');
+    Route::get('profile-edit/{id}', [user::class, 'student_edit'])->name('profile_edit');
+    Route::post('profile-edit/{id}', [user::class, 'student_update'])->name('profile_update');
     Route::get('exam-list',[exam::class, 'examlist'])->name('student.exam');
     Route::get('test/{id}',[exam::class, 'test'])->name('student.test');
     Route::post('test',[exam::class, 'student_submit'])->name('student_submit');

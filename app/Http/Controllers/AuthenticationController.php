@@ -116,7 +116,7 @@ class AuthenticationController extends Controller
     public function show(User $data)
     {
         //  dd(session()->all());
-
-        return view('user.profile', compact('data')); 
+        $profile = User::find(currentUserId());
+        return view('user.profile', compact('data','profile')); 
     }
 }

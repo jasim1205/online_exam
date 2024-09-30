@@ -19,4 +19,8 @@ class ClassList extends Model
     {
         return $this->hasMany(Exam::class, 'exam_id', 'id');
     }
+
+    public function user(){
+        return $this->hasMany(User::class,'class_id','id');
+    }
 }

@@ -137,7 +137,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="pro-edit"><a data-target="#profile_info" data-toggle="modal" class="edit-icon" href="#"><i class="fa fa-pencil"></i></a></div>
+										<div class="pro-edit"><a class="edit-icon" href="{{route('user.edit',encryptor('encrypt',$profile->id))}}"><i class="fa fa-pencil"></i></a></div>
 									</div>
 								</div>
 							</div>

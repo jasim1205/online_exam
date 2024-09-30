@@ -51,4 +51,8 @@ class User extends Authenticatable
     public function submissions(){
         return $this->hasMany(SubmissionTable::class, 'user_id','id');
     }
+    public function classlist()
+    {
+        return $this->belongsTo(ClassList::class, 'class_id', 'id');
+    }
 }

@@ -6,7 +6,7 @@
                             <a href="{{route('dashboard')}}"><i class="la la-dashboard"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
                         </li>
                         <li>
-                            <a href="{{route('user.profile')}}"><i class="la la-user"></i> <span> Profile</span> <span class="menu-arrow"></span></a>
+                            <a href="{{route('profile')}}"><i class="la la-user"></i> <span> Profile</span> <span class="menu-arrow"></span></a>
                         </li>
                         <li class="menu-title">
                             <span>Exam</span>

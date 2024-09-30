@@ -19,48 +19,11 @@
             <!-- /Page Header -->
             <div class="card">
                 <div class="card-body">
-                    <form class="form" method="post" enctype="multipart/form-data" action="{{route('user.update',encryptor('encrypt',$user->id))}}">
+                    <form class="form" method="post" enctype="multipart/form-data" action="{{route('profile_update',encryptor('encrypt',$user->id))}}">
                         @csrf
-                        @method('PATCH')
-                        <input type="hidden" name="uptoken" value="{{encryptor('encrypt',$user->id)}}">
+                        @method('Post')
+                        {{-- <input type="hidden" name="uptoken" value="{{encryptor('encrypt',$user->id)}}"> --}}
                         <div class="row">
-                            @if($user->role_id == 1)
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    <label for="roleId">Role  <i class="text-danger">*</i></label>
-                                    <select class="form-control" name="roleId" id="roleId">
-                                        <option value="">Select Role</option>
-                                        @forelse($role as $r)
-                                            <option value="{{$r->id}}" {{ old('roleId',$user->role_id)==$r->id?"selected":""}}> {{ $r->name}}</option>
-                                        @empty
-                                            <option value="">No Role found</option>
-                                        @endforelse
-                                    </select>
-                                    
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    <label for="fullAccess">Full Access</label>
-                                    <select id="fullAccess" class="form-control" name="fullAccess">
-                                        <option value="0" @if(old('fullAccess',$user->full_access)==0) selected @endif>No</option>
-                                        <option value="1" @if(old('fullAccess',$user->full_access)==1) selected @endif>Yes</option>
-                                    </select>
-                                   
-                                 </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    <label for="status">Status</label>
-                                    <select id="status" class="form-control" name="status">
-                                        <option value="1" @if(old('status',$user->status)==1) selected @endif>Active</option>
-                                        <option value="0" @if(old('status',$user->status)==0) selected @endif>Inactive</option>
-                                    </select>
-                                    
-                                </div>
-                            </div>
-                            @endif
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="userName">Name<i class="text-danger">*</i></label>
