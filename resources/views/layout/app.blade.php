@@ -79,7 +79,7 @@
                         <span>Soeng Souy</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{route('user.profile')}}">My Profile</a>
+                        <a class="dropdown-item" href="{{route('userProfile')}}">My Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="{{route('logOut')}}">Logout</a>
                     </div>
@@ -92,9 +92,9 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
                         class="fa fa-ellipsis-v mobile-view"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="{{route('userProfile')}}">My Profile</a>
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <a class="dropdown-item" href="{{route('logOut')}}">Logout</a>
                 </div>
             </div>
             <!-- /Mobile Menu -->

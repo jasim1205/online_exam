@@ -2,14 +2,17 @@
                         {{-- <li class="menu-title">
                             <span>Main</span>
                         </li> --}}
-                        <li class="submenu">
-                            <a href="#"><i class="la la-dashboard"></i> <span> Profile</span> <span class="menu-arrow"></span></a>
+                        <li>
+                            <a href="{{route('dashboard')}}"><i class="la la-dashboard"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
+                        </li>
+                        <li>
+                            <a href="{{route('user.profile')}}"><i class="la la-user"></i> <span> Profile</span> <span class="menu-arrow"></span></a>
                         </li>
                         <li class="menu-title">
-                            <span>Employees</span>
+                            <span>Exam</span>
                         </li>
                         <li class="submenu">
-                            <a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span
+                            <a href="#" class="noti-dot"></i> <span> Exam</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                  <li><a href="{{route('student.exam')}}">Exam List</a></li>

@@ -44,7 +44,7 @@
                                     <tr>
                                         <th scope="row">{{ ++$loop->index }}</th>
                                         <td>{{$p->title}}</td>
-                                        <td>{{$p->class?->name}}</td>
+                                        <td>{{$p->classlist?->name}}</td>
                                         <td>{{$p->subject?->name}}</td>
                                         <td>{{$p->examtype?->name}}</td>
                                         <td>{{$p->total_marks}}</td>

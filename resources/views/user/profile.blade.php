@@ -56,7 +56,8 @@
 </style>
 <!-- Page Wrapper -->
             <div class="page-wrapper">
-			
+{{-- {{ dd(request()->session()->all()) }} --}}
+
 				<!-- Page Content -->
                 <div class="content container-fluid">
 				
@@ -67,7 +68,7 @@
 								<h3 class="page-title">Profile</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-									<li class="breadcrumb-item active">{{$profile->role->name}}</li>
+									<li class="breadcrumb-item active">{{encryptor('decrypt',request()->session()->get('role'))}}</li>
 								</ul>
 							</div>
 						</div>
@@ -81,13 +82,14 @@
 									<div class="profile-view">
 										<div class="profile-img-wrap">
 											<div class="profile-img">
-                                                @if($profile->image)
-                                                    <img src="{{asset('public/uploads/employee/'.$profile->image)}}" alt="">
+                                                @if(request()->session()->has('image') && request()->session()->get('image') != 'no-image.png')
+                                                    <!-- Show session image if available -->
+                                                    <img src="{{ asset('public/uploads/user/' . request()->session()->get('image')) }}" alt="user">
                                                 @else
-                                                    @if($profile->gender == 1)
-                                                        <a href="#"><img alt="" src="{{asset('assets/img/profiles/avatar_male.png')}}"></a>
+                                                    @if((int) request()->session()->get('gender') === 1)
+                                                        <img src="{{ asset('assets/img/profiles/avatar_male.png') }}" alt="Male">
                                                     @else
-                                                        <a href="#"><img alt="" src="{{asset('assets/img/profiles/avatar_female.png')}}"></a>
+                                                        <img src="{{ asset('assets/img/profiles/avatar_female.png') }}" alt="Female">
                                                     @endif
                                                 @endif
 											</div>
@@ -96,11 +98,10 @@
 											<div class="row">
 												<div class="col-md-5">
 													<div class="profile-info-left">
-														<h3 class="user-name m-t-0 mb-0">{{$profile->name}}</h3>
-														<h6 class="text-muted">UI/UX Design Team</h6>
-														<small class="text-muted">Web Designer</small>
-														<div class="staff-id">Employee ID : FT-0001</div>
-														<div class="small doj text-muted">Date of Join : 1st Jan 2013</div>
+														<h3 class="user-name m-t-0 mb-0"></h3>
+														<h5 class="">{{encryptor('decrypt',request()->session()->get('Name'))}}</h5>
+														<div class="staff-id">Username: {{encryptor('decrypt',request()->session()->get('Name'))}}</div>
+														<div class="small doj text-muted">Date of Join : {{ encryptor('decrypt', request()->session()->get('join'))}}</div>
 														<div class="staff-msg"><a class="btn btn-custom" href="chat.html">Send Message</a></div>
 													</div>
 												</div>
@@ -108,36 +109,29 @@
 													<ul class="personal-info">
 														<li>
 															<div class="title">Phone:</div>
-															<div class="text"><a href="">9876543210</a></div>
+															<div class="text"><a href="">{{request()->session()->get('contact')}}</a></div>
 														</li>
 														<li>
 															<div class="title">Email:</div>
-															<div class="text"><a href="">johndoe@example.com</a></div>
+															<div class="text"><a href="">{{request()->session()->get('email')}}</a></div>
 														</li>
 														<li>
 															<div class="title">Birthday:</div>
-															<div class="text">24th July</div>
+															<div class="text">{{request()->session()->get('birthday')}}</div>
 														</li>
 														<li>
 															<div class="title">Address:</div>
-															<div class="text">1861 Bayonne Ave, Manchester Township, NJ, 08759</div>
+															<div class="text">{{request()->session()->get('address')}}</div>
 														</li>
 														<li>
 															<div class="title">Gender:</div>
-															<div class="text">Male</div>
-														</li>
-														<li>
-															<div class="title">Reports to:</div>
 															<div class="text">
-															   <div class="avatar-box">
-																  <div class="avatar avatar-xs">
-																	 <img src="assets/img/profiles/avatar-16.jpg" alt="">
-																  </div>
-															   </div>
-															   <a href="profile.html">
-																	Jeffery Lalor
-																</a>
-															</div>
+                                                                @if(request()->session()->get('gender') == 1)
+                                                                    Male
+                                                                @else
+                                                                    Female
+                                                                @endif
+                                                            </div>
 														</li>
 													</ul>
 												</div>
@@ -149,7 +143,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="tab-content">
+					{{-- <div class="tab-content">
 						<div id="emp_profile" class="pro-overview">
 							<div class="row">
 								<div class="col-md-6 d-flex">
@@ -233,7 +227,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> --}}
                 </div>
             </div>
 			<!-- /Page Wrapper -->

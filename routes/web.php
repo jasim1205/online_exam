@@ -19,9 +19,11 @@ Route::get('/logout', [auth::class, 'signOut'])->name('logOut');
 
 Route::middleware(['checkauth'])->prefix('admin')->group(function () {
     Route::get('dashboard', [dashboard::class, 'index'])->name('dashboard');
+    Route::get('userProfile', [auth::class, 'show'])->name('userProfile');
 });
 Route::middleware(['checkauth'])->prefix('student')->group(function () {
     Route::get('dashboard', [dashboard::class, 'index'])->name('student_dashboard');
+    Route::get('userProfile', [auth::class, 'show'])->name('userProfile');
     Route::get('profile', [user::class, 'profile'])->name('profile');
     Route::get('exam-list',[exam::class, 'examlist'])->name('student.exam');
     Route::get('test/{id}',[exam::class, 'test'])->name('student.test');
@@ -32,6 +34,8 @@ Route::middleware(['checkauth'])->prefix('student')->group(function () {
 Route::middleware(['checkrole'])->prefix('admin')->group(function(){
     Route::resource('user', user::class);
     Route::get('profile', [user::class, 'profile'])->name('user.profile');
+    Route::get('student-list', [user::class, 'student'])->name('student');
+
     Route::resource('role', role::class);
     Route::get('permission/{role}', [permission::class,'index'])->name('permission.list');
     Route::post('permission/{role}', [permission::class,'save'])->name('permission.save');
@@ -39,7 +43,8 @@ Route::middleware(['checkrole'])->prefix('admin')->group(function(){
     Route::resource('subject', subject::class);
     Route::resource('examtype', examtype::class);
     Route::resource('exam', exam::class);
-   
+    Route::get('admin-result/{id}',[exam::class,'result_list'])->name('admin.result');
+    Route::get('individual-result/{id}',[exam::class, 'individual_result'])->name('individual.result');
 });
 // Route::get('/', function () {
 //     return view('welcome');

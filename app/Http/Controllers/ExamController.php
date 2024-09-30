@@ -24,11 +24,23 @@ class ExamController extends Controller
         $exam = Exam::get();
         return view('exam.index',compact('exam'));
     }
+    public function result_list($id){
+        $exam = Exam::findOrFail(encryptor('decrypt',$id));
+        $submit = SubmissionTable::where('exam_id',$exam->id)->get();
+        return view('exam.adminresultlist',compact('exam','submit'));
+    }
 
-    public function examlist(){
-        $user = User::find(CurrentUserId());
-        $exam = Exam::where('class_id',$user->class_id)->get();
-        return view('exam.studentexam',compact('user','exam'));
+    public function individual_result($id){
+        $submit = SubmissionTable::findOrFail(encryptor('decrypt',$id));
+        
+        // $test = Exam::findOrFail(encryptor('decrypt',$id));
+        // $questions = Question::where('exam_id',$test->id)->get();
+         // Fetch the user's submission
+        // $submit = SubmissionTable::where('exam_id',$test->id)->first();
+        
+        // Fetch the user's submitted answers
+        // $answers = AnswerSubmit::where('submission_id', $submit->id)->get()->keyBy('question_id'); // Key by question_id for easy lookup
+        return view('exam.individual_result',compact('submit'));
     }
 
     
@@ -148,6 +160,12 @@ class ExamController extends Controller
     {
         //
     }
+
+    public function examlist(){
+        $user = User::find(CurrentUserId());
+        $exam = Exam::where('class_id',$user->class_id)->get();
+        return view('exam.studentexam',compact('user','exam'));
+    }
     public function test($id){
         $user = User::find(CurrentUserId());
         $test = Exam::findOrFail(encryptor('decrypt',$id));
@@ -259,6 +277,9 @@ class ExamController extends Controller
             $data->exam_id = $request->exam_id;
             $data->date = now();
 
+            // Initialize total marks obtained
+            $totalObtainMarks = 0;
+
             // Cast question_id and option_id as arrays (ensure they are arrays)
             $questions = $request->input('question_id', []);
             $options = $request->input('option_id', []);
@@ -266,6 +287,10 @@ class ExamController extends Controller
             if ($data->save()) {
                 if ($questions) {
                     foreach ($questions as $key => $question_id) {
+
+                        // Find the question and get its details
+                        $question = DB::table('questions')->where('id', $question_id)->first();
+
                         $answer = new AnswerSubmit;
                         $answer->submission_id = $data->id;
                         $answer->question_id = $question_id;
@@ -283,6 +308,11 @@ class ExamController extends Controller
                                 // Save the 'option' field value as the option_id
                                 $answer->option_id = $option->option;  // Save the `option` field, not the `id`
                                 //$answer->option_text = $option->option_text; // Option text if you also want to store it
+                                // Compare the selected option ID against the correct answer stored in the `option_ans` field (as integer)
+                                if ($option->option == $question->option_ans) {
+                                    // Add the question's marks to the total obtained marks
+                                    $totalObtainMarks += $question->marks;
+                                }
                             } else {
                                 $answer->option_id = null; // Option not found
                                 //$answer->option_text = null; // No option text
@@ -295,6 +325,9 @@ class ExamController extends Controller
                         $answer->save();
                     }
                 }
+                // Save the total obtained marks in the submission record
+                $data->total_obtain_marks = $totalObtainMarks;
+                $data->save();
             }
 
             DB::commit();
@@ -313,7 +346,7 @@ class ExamController extends Controller
         $test = Exam::findOrFail(encryptor('decrypt',$id));
         $questions = Question::where('exam_id',$test->id)->get();
          // Fetch the user's submission
-        $submit = SubmissionTable::where('user_id', currentUserId())->first();
+        $submit = SubmissionTable::where('user_id', currentUserId())->where('exam_id',$test->id)->first();
         
         // Fetch the user's submitted answers
         $answers = AnswerSubmit::where('submission_id', $submit->id)->get()->keyBy('question_id'); // Key by question_id for easy lookup

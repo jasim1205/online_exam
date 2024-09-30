@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data=User::orderBy('created_at', 'desc')->get();
+        $data=User::where('role_id', 1)->orderBy('created_at', 'desc')->get();
         return view('user.index',compact('data'));
     }
 
@@ -29,10 +29,10 @@ class UserController extends Controller
         return view('user.profile',compact('profile'));
     }
 
-    public function employees()
+    public function student()
     {
-        $employees = User::where('role_id', 2)->orderBy('created_at', 'desc')->paginate(12); 
-        return view('user.employee', compact('employees'));
+        $student = User::where('role_id', 2)->orderBy('created_at', 'desc')->paginate(12); 
+        return view('user.student', compact('student'));
     }
 
 

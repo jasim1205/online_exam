@@ -92,6 +92,12 @@ class AuthenticationController extends Controller
                 'userId'=>encryptor('encrypt',$user->id),
                 'Name'=>encryptor('encrypt',$user->name),
                 'username'=>encryptor('encrypt',$user->username),
+                'birthday'=>$user->date_of_birth,
+                'contact'=>$user->contact_no,
+                'email'=>$user->email,
+                'address'=>$user->address,
+                'gender'=>$user->gender,
+                'join'=>encryptor('encrypt',$user->created_at->format('d-m-Y')),
                 'role_id'=>encryptor('encrypt',$user->role_id),
                 'accessType'=>encryptor('encrypt',$user->full_access),
                 'role'=>encryptor('encrypt',$user->role->name),
@@ -109,6 +115,8 @@ class AuthenticationController extends Controller
 
     public function show(User $data)
     {
+        //  dd(session()->all());
+
         return view('user.profile', compact('data')); 
     }
 }

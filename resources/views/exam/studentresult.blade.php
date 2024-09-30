@@ -11,8 +11,7 @@
                     <h3 class="page-title text-center">{{$test->title}}</h3>
                     <h3 class="page-title text-center">{{$test->subject?->name}}</h3>
                     <h4 class="page-title text-center">{{$test->examtype?->name}}-{{$test->total_marks}}</h4>
-                    <h5 class="duration" id="duration">{{$test->duration}}</h5>
-                    <div class="countdown-timer" id="countdown"></div>
+                    <h5>Total Obtain:{{$submit->total_obtain_marks}}</h5>
                 </div>
             </div>
         </div>
@@ -27,7 +26,7 @@
                                 <p><i class="la la-arrow-right"></i> {{$item->question}}
                                     <input type="hidden" name="question_id[]" value="{{$item->id}}">
                                 </p>
-                                <ul style="list-style: none;">
+                                <ul>
                                     @foreach ($item->option as $optionIndex => $value)
                                         <li>
                 @php
@@ -41,7 +40,7 @@
                     $isUserAnswer = $value->option == $submittedAnswer;
                 @endphp
 
-                                            <input type="radio" name="option_id[{{$index}}]" id="option_{{$index}}_{{$optionIndex}}" value="{{$value->id}}">
+                                            {{-- <input type="radio" name="option_id[{{$index}}]" id="option_{{$index}}_{{$optionIndex}}" value="{{$value->id}}"> --}}
                 {{-- Show correct answer with check mark --}}
                 @if ($isUserAnswer && $isCorrect)
                     <i class="las la-check" style="color: green;"></i> {{-- Correct answer --}}

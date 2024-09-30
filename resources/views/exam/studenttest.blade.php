@@ -22,6 +22,7 @@
                     @csrf
                     <div class="row">
                         <input type="hidden" name="exam_id" value="{{$test->id}}">
+                        <input type="hidden" name="total_obtain_marks" value="">
                         <div class="col-md-12">
                             @foreach ($questions as $index => $item)
                                 <p><i class="la la-arrow-right"></i> {{$item->question}}
