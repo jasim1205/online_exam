@@ -10,7 +10,7 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3 class="page-title">Welcome Student!</h3>
+                        <h3 class="page-title">Welcome {{$user->name}}!</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ul>
@@ -23,10 +23,10 @@
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                     <div class="card dash-widget">
                         <div class="card-body">
-                            <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
+                            <span class="dash-widget-icon"><i class="fa fa-book"></i></span>
                             <div class="dash-widget-info">
-                                <h3>112</h3>
-                                <span>Projects</span>
+                                <h3>{{$exam}}</h3>
+                                <span>Total Exam</span>
                             </div>
                         </div>
                     </div>
@@ -34,10 +34,10 @@
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                     <div class="card dash-widget">
                         <div class="card-body">
-                            <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
+                            <span class="dash-widget-icon"><i class="fa fa-edit"></i></span>
                             <div class="dash-widget-info">
-                                <h3>44</h3>
-                                <span>Clients</span>
+                                <h3>{{$submit}}</h3>
+                                <span>Total Attend</span>
                             </div>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
                             <div class="dash-widget-info">
-                                <h3>37</h3>
-                                <span>Tasks</span>
+                                <h3>{{$total_marks}}</h3>
+                                <span>Total Marks</span>
                             </div>
                         </div>
                     </div>
@@ -58,8 +58,8 @@
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
                             <div class="dash-widget-info">
-                                <h3>218</h3>
-                                <span>Employees</span>
+                                <h3>{{$total_obtain}}</h3>
+                                <span>Otain Marks</span>
                             </div>
                         </div>
                     </div>

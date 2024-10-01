@@ -81,7 +81,7 @@
                 $('#countdown').text("Time's up!");
                 localStorage.removeItem(localStorageKey); // Clear the stored end time
                 // Optionally submit the form
-                // $('form').submit(); // Uncomment to auto-submit
+                 $('form').submit(); // Uncomment to auto-submit
             }
         }
 

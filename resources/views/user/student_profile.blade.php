@@ -85,7 +85,7 @@
 
                                                 @if($profile->image)
                                                     <!-- Show session image if available -->
-                                                    <img src="{{ asset('public/uploads/user/'.$profile->image)}}" alt="user">
+                                                    <img src="{{ asset('uploads/user/'.$profile->image)}}" alt="user">
                                                 @else
                                                     @if($profile->gender === 1)
                                                         <img src="{{ asset('assets/img/profiles/avatar_male.png') }}" alt="Male">

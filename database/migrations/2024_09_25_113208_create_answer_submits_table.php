@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('answer_submits', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('submission_id')->index();
+            $table->unsignedBigInteger('submission_id')->nullable();
             $table->foreign('submission_id')->references('id')->on('submission_tables')->onDelete('cascade');
-            $table->unsignedBigInteger('question_id')->index();
+            $table->unsignedBigInteger('question_id')->nullable();
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
-            $table->unsignedBigInteger('option_id')->index();
+            $table->unsignedBigInteger('option_id')->nullable();
             $table->foreign('option_id')->references('id')->on('question_options')->onDelete('cascade');
             $table->integer('marks')->nullable();
             $table->timestamps();

@@ -55,7 +55,7 @@
 
             <!-- Logo -->
             <div class="header-left">
-                <a href="index.html" class="logo" style="margin-top: 10px">
+                <a href="{{route('dashboard')}}" class="logo" style="margin-top: 10px">
                     <img src="{{ asset('assets/img/images-removebg-preview.png')}}" width="100" height="40" alt="">
                 </a>
             </div>
@@ -74,9 +74,20 @@
             <ul class="nav user-menu">
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="assets/img/profiles/avatar-21.jpg" alt="">
-                            <span class="status online"></span></span>
-                        <span>Soeng Souy</span>
+                        <span class="user-img">
+                            @if(request()->session()->has('image') && request()->session()->get('image') != 'no-image.png')
+                                <!-- Show session image if available -->
+                                <img src="{{ asset('uploads/user/' . request()->session()->get('image')) }}" alt="user">
+                            @else
+                                @if(request()->session()->get('gender') == 1)
+                                    <img src="{{ asset('assets/img/profiles/avatar_male.png') }}" alt="Male">
+                                @else
+                                    <img src="{{ asset('assets/img/profiles/avatar_female.png') }}" alt="Female">
+                                @endif
+                            @endif
+                            <span class="status online"></span>
+                        </span>
+                        <span>{{encryptor('decrypt',request()->session()->get('Name'))}}</span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{route('userProfile')}}">My Profile</a>

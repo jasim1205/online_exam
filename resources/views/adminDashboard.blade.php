@@ -25,8 +25,8 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3>112</h3>
-                                    <span>Projects</span>
+                                    <h3>{{$exam}}</h3>
+                                    <span>Total Exam</span>
                                 </div>
                             </div>
                         </div>
@@ -36,8 +36,8 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3>44</h3>
-                                    <span>Clients</span>
+                                    <h3>{{$student}}</h3>
+                                    <span>Total Student</span>
                                 </div>
                             </div>
                         </div>
@@ -47,8 +47,8 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3>37</h3>
-                                    <span>Tasks</span>
+                                    <h3>{{$submit}}</h3>
+                                    <span>Total Submit</span>
                                 </div>
                             </div>
                         </div>

@@ -33,14 +33,13 @@ class ExamController extends Controller
     public function individual_result($id){
         $submit = SubmissionTable::findOrFail(encryptor('decrypt',$id));
         
-        // $test = Exam::findOrFail(encryptor('decrypt',$id));
-        // $questions = Question::where('exam_id',$test->id)->get();
+         $questions = Question::where('exam_id',$submit->exam_id)->get();
          // Fetch the user's submission
         // $submit = SubmissionTable::where('exam_id',$test->id)->first();
         
         // Fetch the user's submitted answers
-        // $answers = AnswerSubmit::where('submission_id', $submit->id)->get()->keyBy('question_id'); // Key by question_id for easy lookup
-        return view('exam.individual_result',compact('submit'));
+         $answers = AnswerSubmit::where('submission_id', $submit->id)->get()->keyBy('question_id'); // Key by question_id for easy lookup
+        return view('exam.individual_result',compact('submit','questions','answers'));
     }
 
     

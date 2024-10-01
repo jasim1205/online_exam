@@ -67,7 +67,7 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         let duration = parseInt($('#duration').text());
@@ -106,6 +106,6 @@
         let countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown(); // Call the function immediately to set the initial state
     });
-</script>
+</script> --}}
 
 @endsection
