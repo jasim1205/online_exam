@@ -97,7 +97,7 @@ class AuthenticationController extends Controller
                 'email'=>$user->email,
                 'address'=>$user->address,
                 'gender'=>$user->gender,
-                'join'=>encryptor('encrypt',$user->created_at->format('d-m-Y')),
+                'join'=>encryptor('encrypt',$user->created_at?->format('d-m-Y')),
                 'role_id'=>encryptor('encrypt',$user->role_id),
                 'accessType'=>encryptor('encrypt',$user->full_access),
                 'role'=>encryptor('encrypt',$user->role->name),

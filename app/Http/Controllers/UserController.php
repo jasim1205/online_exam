@@ -103,10 +103,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         try{
-            // dd($request->all());
+             //dd($request->all());
             $data=User::findOrFail(encryptor('decrypt',$id));
             $data->name=$request->userName;
             $data->email=$request->EmailAddress;
