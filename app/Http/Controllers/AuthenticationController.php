@@ -29,7 +29,7 @@ class AuthenticationController extends Controller
             $user->gender=$request->gender;
             $user->password=Hash::make($request->password);
             $user->remember_password=$request->password;
-            $user->status=0;
+            $user->status=1;
             $user->role_id=2;
             if($user->save()){
                 $this->notice::success('Successfully Registered');

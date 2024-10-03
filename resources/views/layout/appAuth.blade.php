@@ -28,7 +28,7 @@
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
     </head>
-    <body class="account-page">
+    <body class="account-page" style="background-image: url({{asset('assets/img/bgone.jpg')}});">
 
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
