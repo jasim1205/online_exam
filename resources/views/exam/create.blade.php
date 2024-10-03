@@ -228,6 +228,9 @@
                     
                 </div>
                 <div class="col-md-12 col-12 mt-3">
+                    <span onclick="addQuestion();" class="add-row text-primary ms-4 pt-1">
+                        <i class="fa fa-plus"></i>
+                    </span>
                     <span onclick="removeAssetRow(this);" class="delete-row text-danger">
                         <i class="bi bi-trash-fill"></i> Remove
                     </span>
