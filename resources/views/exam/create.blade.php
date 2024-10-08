@@ -2,6 +2,14 @@
 @section('title',trans('Exam'))
 @section('page',trans('Create'))
 @section('content')
+<style>
+    .add-row {
+        cursor: pointer;
+    }
+    .delete-row{
+        cursor: pointer;
+    }
+</style>
 
     <div class="page-wrapper">
         <!-- Page Content -->
@@ -117,8 +125,8 @@
                         </div>
                         <div class="row" id="AddQuestionRow">
                             <h5>Mcq Question</h5>
-                            <span onclick="addQuestion();" class="add-row text-primary ms-4 pt-1">
-                                    <i class="fa fa-plus"></i>
+                            <span onclick="addQuestion();" class="add-row text-success mx-4">
+                                    <i class="fa fa-plus">Add</i>
                                 </span>
                             <div class="col-md-12 my-1">
                                 <label for="class">Question</label>
@@ -175,7 +183,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-12 col-12 text-right">
                                 <button type="submit" class="btn btn-primary px-5">Save</button>
                             </div>
                         </div>
@@ -228,8 +236,8 @@
                     
                 </div>
                 <div class="col-md-12 col-12 mt-3">
-                    <span onclick="addQuestion();" class="add-row text-primary ms-4 pt-1">
-                        <i class="fa fa-plus"></i>
+                    <span onclick="addQuestion();" class="add-row text-success mx-3 pt-1 ">
+                        <i class="fa fa-plus">Add</i>
                     </span>
                     <span onclick="removeAssetRow(this);" class="delete-row text-danger">
                         <i class="bi bi-trash-fill"></i> Remove

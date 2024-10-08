@@ -83,7 +83,8 @@ class ExamController extends Controller
                             $data->exam_id = $exam->id;
                             $data->question = $question;
                             $data->option_ans = $request->option_ans[$key];
-                            $data->marks = $request->marks[$key];
+                            // $data->marks = $request->marks[$key];
+                            $data->marks = 2;
                             
                             if ($data->save()) {
                                 // Ensure 4 options are saved for each question
