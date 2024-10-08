@@ -3,7 +3,10 @@
         <div class="account-box shadow-lg">
             <div class="account-wrapper">
                 <h3 class="account-title">Login</h3>
-                <p class="account-subtitle">Access to our dashboard</p>
+                <div class="text-center">
+                    <img src="{{ asset('assets/img/images-removebg-preview.png') }}" alt="" width="200px">
+                </div>
+                {{-- <p class="account-subtitle">Access to our dashboard</p> --}}
 
                 <!-- Account Form -->
                 <form action="{{route('login.check')}}" method="POST" class="">

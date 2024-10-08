@@ -3,7 +3,10 @@
         <div class="account-box">
             <div class="account-wrapper">
                 <h3 class="account-title">Register</h3>
-                <p class="account-subtitle">Access to our dashboard</p>
+                <div class="text-center">
+                    <img src="{{ asset('assets/img/images-removebg-preview.png') }}" alt="" width="200px">
+                </div>
+                {{-- <p class="account-subtitle">Access to our dashboard</p> --}}
                 
                 <!-- Account Form -->
                 <form action="{{route('register.store')}}" method="POST">

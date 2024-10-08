@@ -25,7 +25,7 @@ class SignupRequest extends FormRequest
             'FullName'=>'required|max:255',
             'contact_no'=>'required|unique:users,contact_no',
             'EmailAddress'=>'required|unique:users,email',
-            'password'=>'required|confirmed',
+            'password'=>'required|min:8|confirmed',
             'gender.required' => 'Please select your gender.',
         ];
     }
