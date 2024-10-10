@@ -162,11 +162,11 @@
                                     <option value="4">D</option>
                                 </select>
                             </div>
-                            <div class="col-md-3 my-1">
+                            {{-- <div class="col-md-3 my-1">
                                 <label for="class">Marks</label>
                                 <input type="text" id="" class="form-control" value="{{ old('marks')}}" name="marks[]">
                                 
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="row" id="Descriptive">
                             <h5>Descriptive Question</h5>
@@ -230,11 +230,10 @@
                         <option value="4">D</option>
                     </select>
                 </div>
-                <div class="col-md-3 my-1">
+                <!--<div class="col-md-3 my-1">
                     <label for="class">Marks</label>
                     <input type="text" id="" class="form-control" value="{{ old('marks')}}" name="marks[]">
-                    
-                </div>
+                </div> -->
                 <div class="col-md-12 col-12 mt-3">
                     <span onclick="addQuestion();" class="add-row text-success mx-3 pt-1 ">
                         <i class="fa fa-plus">Add</i>
