@@ -15,9 +15,9 @@
                             <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
                         </ul>
                     </div>
-                    <div class="col-auto float-right ml-auto">
+                    {{-- <div class="col-auto float-right ml-auto">
                         <a href="" class="btn add-btn"><i class="fa fa-plus"></i> Add New Exam-Type</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <!-- /Page Header -->

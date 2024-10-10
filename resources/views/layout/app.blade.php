@@ -89,11 +89,11 @@
                         </span>
                         <span>{{encryptor('decrypt',request()->session()->get('Name'))}}</span>
                     </a>
-                    <div class="dropdown-menu">
+                    {{-- <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{route('userProfile')}}">My Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="{{route('logOut')}}">Logout</a>
-                    </div>
+                    </div> --}}
                 </li>
             </ul>
             <!-- /Header Menu -->
@@ -102,11 +102,11 @@
             <div class="dropdown mobile-user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
                         class="fa fa-ellipsis-v mobile-view"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
+                {{-- <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="{{route('userProfile')}}">My Profile</a>
                     <a class="dropdown-item" href="#">Settings</a>
                     <a class="dropdown-item" href="{{route('logOut')}}">Logout</a>
-                </div>
+                </div> --}}
             </div>
             <!-- /Mobile Menu -->
 

@@ -3,7 +3,7 @@
                             <span>Main</span>
                         </li> --}}
                         <li>
-                            <a href="{{route('dashboard')}}"><i class="la la-dashboard"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
+                            <a href="{{route('student_dashboard')}}"><i class="la la-dashboard"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
                         </li>
                         <li>
                             <a href="{{route('profile')}}"><i class="la la-user"></i> <span> Profile</span> <span class="menu-arrow"></span></a>

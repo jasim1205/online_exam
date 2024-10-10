@@ -16,7 +16,7 @@
                         </ul>
                     </div>
                     <div class="col-auto float-right ml-auto">
-                        <a href="{{route('exam.create')}}" class="btn add-btn"><i class="fa fa-plus"></i> Add New Exam-Type</a>
+                        <a href="{{route('exam.create')}}" class="btn add-btn"><i class="fa fa-plus"></i> Add New Exam</a>
                     </div>
                 </div>
             </div>
