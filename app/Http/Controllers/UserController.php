@@ -125,7 +125,7 @@ class UserController extends Controller
 
             if($request->hasFile('image')){
                 $imageName = rand(111,999).time().'.'.$request->image->extension();
-                $request->image->move(public_path('uploads/employee'), $imageName);
+                $request->image->move(public_path('uploads/user'), $imageName);
                 $data->image=$imageName;
             }
             if($data->save()){

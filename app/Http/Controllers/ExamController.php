@@ -140,9 +140,16 @@ class ExamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Exam $exam)
+    public function edit($id)
     {
-        //
+        $classlist = ClassList::get();
+        $subject = Subject::get();
+        $examtype = ExamType::get();
+        // $question = Question::get();
+        $exam = Exam::findOrFail(encryptor('decrypt',$id));
+        $question = Question::where('exam_id',$exam->id)->with('option')->get();
+        return view('exam.edit',compact('classlist','subject','examtype','question','exam'));
+
     }
 
     /**

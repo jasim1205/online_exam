@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\ClassList;
 use App\Http\Requests\Authentication\SignupRequest;
 use App\Http\Requests\Authentication\SigninRequest;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +16,8 @@ use Exception;
 class AuthenticationController extends Controller
 {
     public function signUpForm(){
-        return view('authentication.register');
+        $classlist = ClassList::get();
+        return view('authentication.register',compact('classlist'));
     }
 
     public function signUpStore(SignupRequest $request){
@@ -29,6 +31,7 @@ class AuthenticationController extends Controller
             $user->gender=$request->gender;
             $user->password=Hash::make($request->password);
             $user->remember_password=$request->password;
+            $user->class_id=$request->class_id;
             $user->status=1;
             $user->role_id=2;
             if($user->save()){

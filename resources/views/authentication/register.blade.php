@@ -61,6 +61,15 @@
                         @endif
                     </div>
                     <div class="form-group">
+                        <label for="">Class</label>
+                        <select name="class_id" id="" class="form-control">
+                            <option value="">Select Class</option>
+                            @foreach ($classlist as $item)
+                              <option value="{{$item->id}}">{{$item->name}}</option>  
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Password</label>
                         <input class="form-control" type="password" name="password">
                         @if($errors->has('password'))
