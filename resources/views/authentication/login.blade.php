@@ -42,6 +42,7 @@
                         <button class="btn btn-primary account-btn" type="submit">Login</button>
                     </div>
                     <div class="account-footer">
+                        <a href="{{route('forgotPassword')}}" class="" style="color: blue !important">Forget Password</a>
                         <p>Don't have an account yet? <a href="{{route('register')}}">Register</a></p>
                     </div>
                 </form>

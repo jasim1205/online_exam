@@ -16,6 +16,10 @@ Route::post('/register', [auth::class, 'signUpStore'])->name('register.store');
 Route::get('/', [auth::class, 'signInForm'])->name('login');
 Route::post('/login', [auth::class, 'signInCheck'])->name('login.check');
 Route::get('/logout', [auth::class, 'signOut'])->name('logOut');
+Route::get('/forgot-password', [auth::class, 'forgotPassword'])->name('forgotPassword');
+Route::post('forget-password', [auth::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('reset-password/{token}', [auth::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [auth::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 Route::middleware(['checkauth'])->prefix('admin')->group(function () {
     Route::get('dashboard', [dashboard::class, 'index'])->name('dashboard');

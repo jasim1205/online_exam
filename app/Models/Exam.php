@@ -33,4 +33,9 @@ class Exam extends Model
     public function submission(){
         return $this->hasMany(SubmissionTable::class, 'exam_id','id');
     }
+    public function questions()
+    {
+        return $this->hasMany(Question::class); // Example relationship
+    }
+
 }

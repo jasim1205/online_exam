@@ -60,7 +60,7 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-       try {
+        try {
             DB::beginTransaction();
             $exam = new Exam;
             $exam->title = $request->title;
@@ -125,8 +125,6 @@ class ExamController extends Controller
             $this->notice::error('Please try again');
             return redirect()->back()->withInput();
         }
-
-
     }
 
     /**
@@ -155,10 +153,80 @@ class ExamController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Exam $exam)
+    // public function update(Request $request, Exam $exam)
+    // {
+    //     //
+    // }
+
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            // Retrieve the existing exam
+            $exam = Exam::findOrFail(encryptor('decrypt',$id));
+
+            // Update exam details
+            $exam->title = $request->title;
+            $exam->class_id = $request->class_id;
+            $exam->subject_id = $request->subject_id;
+            $exam->examtype_id = $request->examtype_id;
+            $exam->total_marks = $request->total_marks;
+            $exam->duration = $request->duration;
+            $exam->start_deadline = $request->start_deadline;
+            $exam->end_deadline = $request->end_deadline;
+
+            // Delete existing questions and their options
+            // Question::where('exam_id', $exam->id)->delete();
+            $existingQuestions = $exam->questions;
+            foreach ($existingQuestions as $existingQuestion) {
+                $existingQuestion->option()->delete(); // Delete options
+                $existingQuestion->delete(); // Delete question
+            }
+
+            // Save the exam
+            if ($exam->save()) {
+                
+                    $questions = $request->question;
+                    if ($questions) {
+                        foreach ($questions as $key => $question) {
+                            // Save the question
+                            $data = new Question;
+                            $data->exam_id = $exam->id;
+                            $data->question = $question;
+                            $data->option_ans = $request->option_ans[$key];
+                            $data->marks = 2;
+
+                            if ($data->save()) {
+                                // Ensure 4 options are saved for each question
+                                if (isset($request->option_text[$key])) {
+                                    $options = $request->option_text[$key];
+                                    for ($i = 0; $i < 4; $i++) {
+                                        $optionText = $options[$i] ?? '';
+                                        $option = new QuestionOption;
+                                        $option->question_id = $data->id;
+                                        $option->option = $i + 1;
+                                        $option->option_text = $optionText;
+                                        $option->save();
+                                    }
+                                }
+                            }
+                        }
+                    }
+               
+            }
+
+            DB::commit();
+            $this->notice::success('Successfully Updated');
+            return redirect()->route('exam.index');
+
+        } catch (Exception $e) {
+            DB::rollback();
+            $this->notice::error('Please try again');
+            return redirect()->back()->withInput();
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
