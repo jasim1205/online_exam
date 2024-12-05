@@ -1895,7 +1895,7 @@ table.dataTable thead > tr > td.sorting {
     border-radius: 4px;
     display: block;
 	font-size: 22px;
-	padding: 10px 26px;
+	padding: 4px 0px;
     width: 100%;
 }
 .account-box .account-btn:hover,
