@@ -106,19 +106,21 @@ class UserController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         try{
-             //dd($request->all());
+            //dd($request->all());
             $data=User::findOrFail(encryptor('decrypt',$id));
             $data->name=$request->userName;
             $data->email=$request->EmailAddress;
             $data->contact_no=$request->contactNumber;
-            $data->role_id=$request->roleId;
-            $data->status=$request->status;
+            if($request->roleId){
+                $data->role_id=$request->roleId;
+                $data->status=$request->status;
+                $data->full_access=$request->fullAccess;
+            }
             $data->username=$request->username;
             $data->address=$request->address;
             $data->class_id=$request->class_id;
             $data->date_of_birth=$request->date_of_birth;
             $data->gender=$request->gender;
-            $data->full_access=$request->fullAccess;
             $data->remember_password=$request->password;
             if($request->password)
                 $data->password=Hash::make($request->password);
@@ -130,7 +132,12 @@ class UserController extends Controller
             }
             if($data->save()){
                 $this->notice::success('Successfully updated');
-                return redirect()->route('user.index');
+                if($request->roleId){
+                    return redirect()->route('user.index');
+                }else{
+                    return redirect()->route('student');
+                }
+                // return redirect()->route('user.index');
             }
         }catch(Exception $e){
             $this->notice::error('Please try again');
