@@ -27,7 +27,8 @@ class AddNewRequest extends FormRequest
             'contactNumber'=>'required|unique:users,contact_no',
             'username'=>'required|string|unique:users,username',
             'EmailAddress'=>'required|unique:users,email',
-            'password'=>['required','confirmed',Password::min(8)->mixedCase()->numbers()]
+            'password'=>'required',
+            // 'password'=>['required','confirmed',password::min(8)->mixedCase()->numbers()]
         ];
     }
 }

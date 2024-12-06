@@ -44,7 +44,8 @@ class UserController extends Controller
     public function create()
     {
         $role=Role::get();
-        return view('user.create',compact('role'));
+        $classlist=ClassList::get();
+        return view('user.create',compact('role','classlist'));
     }
 
     /**
@@ -58,6 +59,8 @@ class UserController extends Controller
             $data->name=$request->userName;
             $data->email=$request->EmailAddress;
             $data->contact_no=$request->contactNumber;
+            $data->username=$request->username;
+            $data->class_id=$request->class_id;
             $data->role_id=$request->roleId;
             $data->status=$request->status;
             $data->full_access=$request->fullAccess;
@@ -65,13 +68,18 @@ class UserController extends Controller
             $data->remember_token = Str::random(60);
             if($request->hasFile('image')){
                 $imageName = rand(111,999).time().'.'.$request->image->extension();
-                $request->image->move(public_path('uploads/employee'), $imageName);
+                $request->image->move(public_path('uploads/user'), $imageName);
                 $data->image=$imageName;
             }
 
             if($data->save()){
                 $this->notice::success('Successfully saved');
-                return redirect()->route('user.index');
+                if($request->roleId ==1){
+                    return redirect()->route('user.index');
+                }else{
+                    return redirect()->route('student');
+                }
+                // return redirect()->route('user.index');
             }
         }catch(Exception $e){
             //dd($e);
