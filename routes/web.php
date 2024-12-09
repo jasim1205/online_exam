@@ -35,6 +35,7 @@ Route::middleware(['checkauth'])->prefix('student')->group(function () {
     Route::get('test/{id}',[exam::class, 'test'])->name('student.test');
     Route::post('test',[exam::class, 'student_submit'])->name('student_submit');
     Route::get('result/{id}',[exam::class, 'student_result'])->name('student.result');
+    
 });
 
 Route::middleware(['checkrole'])->prefix('admin')->group(function(){
@@ -49,6 +50,8 @@ Route::middleware(['checkrole'])->prefix('admin')->group(function(){
     Route::resource('subject', subject::class);
     Route::resource('examtype', examtype::class);
     Route::resource('exam', exam::class);
+    Route::get('exam-upload',[exam::class, 'uploadExam'])->name('exam_upload');
+    Route::post('exam-upload',[exam::class, 'exam_store'])->name('exam_upload_store');
     Route::get('admin-result/{id}',[exam::class,'result_list'])->name('admin.result');
     Route::get('individual-result/{id}',[exam::class, 'individual_result'])->name('individual.result');
 });

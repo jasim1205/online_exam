@@ -16,6 +16,10 @@
                         </ul>
                     </div>
                     <div class="col-auto float-right ml-auto">
+                        <a href="{{route('exam_upload')}}" class="btn add-btn"><i class="fa fa-plus"></i> Upload File</a>
+                        <a href="{{asset('uploads/DemoFile/DemoPdfExam.pdf')}}" target="_blank" class="btn btn-success">Demo Pdf File</a>
+                    </div>
+                    <div class="col-auto float-right ml-auto">
                         <a href="{{route('exam.create')}}" class="btn add-btn"><i class="fa fa-plus"></i> Add New Exam</a>
                     </div>
                 </div>

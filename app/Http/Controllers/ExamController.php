@@ -12,6 +12,8 @@ use App\Models\SubmissionTable;
 use App\Models\AnswerSubmit;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Smalot\PdfParser\Parser;
+use Illuminate\Support\Facades\Log;
 use DB;
 
 class ExamController extends Controller
@@ -60,6 +62,12 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'total_marks' => 'required|integer|min:1',
+            'duration' => 'required|integer|min:1',
+            'start_deadline' => 'required|date|before_or_equal:end_deadline',
+            'end_deadline' => 'required|date|after_or_equal:start_deadline',
+        ]);
         try {
             DB::beginTransaction();
             $exam = new Exam;
@@ -429,6 +437,183 @@ class ExamController extends Controller
     }
 
 
+    public function uploadExam(){
+        return view('exam.upload');
+    }
+
     
+
+    public function exam_store(Request $request)
+    {
+        try {
+            // dd($request->all);
+            DB::beginTransaction();
+
+            // Validate and retrieve the uploaded file
+            if (!$request->hasFile('exam_file') || !$request->file('exam_file')->isValid()) {
+                throw new Exception('Invalid file uploaded.');
+            }
+
+            $file = $request->file('exam_file');
+            $parser = new Parser();
+            $pdf = $parser->parseFile($file->getPathname());
+            $text = $pdf->getText();
+
+            // Parse exam details and questions
+            $lines = explode("\n", $text);
+            $examData = $this->extractExamData($lines); // Parse exam details
+            $questions = $this->extractQuestions($lines); // Parse questions
+
+            // Save the exam
+            $exam = new Exam();
+            $exam->title = $examData['title'];
+            $exam->class_id = $examData['class_id'];
+            $exam->subject_id = $examData['subject_id'];
+            $exam->examtype_id = $examData['examtype_id'];
+            $exam->total_marks = $examData['total_marks'];
+            $exam->duration = $examData['duration'];
+            $exam->start_deadline = $examData['start_deadline'];
+            $exam->end_deadline = $examData['end_deadline'];
+            // dd($exam);
+            $exam->save();
+
+            // Save questions and options
+            foreach ($questions as $questionData) {
+                $question = new Question();
+                $question->exam_id = $exam->id;
+                $question->question = $questionData['text'];
+                $question->marks = $questionData['marks'];
+                $question->option_ans = $questionData['correct_option'];
+                //dd($questions);
+                $question->save();
+
+                foreach ($questionData['option'] as $key => $optionText) {
+                    $option = new QuestionOption();
+                    $option->question_id = $question->id;
+                    $option->option = $key + 1;
+                    // $option->option = $key + 1;
+                    $option->option_text = $optionText;
+                    // dd($option);
+                    Log::info('Saving Option:', [
+                        'question_id' => $question->id,
+                        // 'option_number' => $key + 1,
+                        'option' => $key + 1, 
+                        'option_text' => $optionText
+                    ]);
+                    $option->save();
+                }
+            }
+
+            DB::commit();
+            return redirect()->route('exam.index')->with('success', 'Exam uploaded successfully.');
+
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Extract exam details from the PDF lines.
+     */
+    private function extractExamData($lines)
+    {
+        // Extract key-value pairs from the header of the PDF
+        $data = [];
+        foreach ($lines as $line) {
+            if (str_contains($line, 'Exam Title:')) {
+                $data['title'] = trim(str_replace('Exam Title:', '', $line));
+            } elseif (str_contains($line, 'Class ID:')) {
+                $data['class_id'] = (int)trim(str_replace('Class ID:', '', $line));
+            } elseif (str_contains($line, 'Subject ID:')) {
+                $data['subject_id'] = (int)trim(str_replace('Subject ID:', '', $line));
+            } elseif (str_contains($line, 'Exam Type ID:')) {
+                $data['examtype_id'] = (int)trim(str_replace('Exam Type ID:', '', $line));
+            } elseif (str_contains($line, 'Total Marks:')) {
+                $data['total_marks'] = (int)trim(str_replace('Total Marks:', '', $line));
+            } elseif (str_contains($line, 'Duration:')) {
+                $data['duration'] = (int)trim(str_replace('Duration:', '', $line));
+            } elseif (str_contains($line, 'Start Deadline:')) {
+                $data['start_deadline'] = trim(str_replace('Start Deadline:', '', $line));
+            } elseif (str_contains($line, 'End Deadline:')) {
+                $data['end_deadline'] = trim(str_replace('End Deadline:', '', $line));
+            }
+        }
+        return $data;
+    }
+    private function extractQuestions($lines)
+    {
+        $questions = [];
+        $currentQuestion = null;
+
+        foreach ($lines as $line) {
+            // Detect the start of a new question
+            $line = trim($line); // Clean up whitespace
+            if (preg_match('/^\d+\.\s/', $line)) { // Match "1. " or "2. "
+                if ($currentQuestion) {
+                    $questions[] = $currentQuestion; // Save the previous question
+                }
+                $currentQuestion = [
+                    'text' => trim(preg_replace('/^\d+\.\s/', '', $line)), // Remove question number
+                    'option' => [],
+                    'correct_option' => null,
+                    'marks' => 2, // Default marks per question
+                ];
+            }
+        // Detect options (e.g., "a. Berlin", "b. Paris")
+            elseif (preg_match('/^[a-d]\.\s/', $line)) { // Match "a. ", "b. ", etc.
+                if ($currentQuestion) {
+                    $optionText = preg_replace('/^[a-d]\.\s/', '', $line); // Remove "a. ", etc.
+                    $currentQuestion['option'][] = $optionText;
+                    Log::info('Adding Option:', ['option_text' => $optionText]);
+                }
+            }
+            // Detect correct answer
+            elseif (str_contains($line, 'Answer:')) {
+                $correctOption = strtolower(trim(str_replace('Answer:', '', $line)));
+                if ($currentQuestion) {
+                    $currentQuestion['correct_option'] = ord($correctOption) - ord('a') + 1; // Convert 'a' to 1, etc.
+                }
+            }
+        }
+        // Add the last question if present
+        if ($currentQuestion) {
+            $questions[] = $currentQuestion;
+        }
+        return $questions;
+    }
+/**
+ * Extract questions and options from the PDF lines.
+ */
+// private function extractQuestions($lines)
+// {
+//     $questions = [];
+//     $currentQuestion = null;
+
+//     foreach ($lines as $line) {
+//         if (preg_match('/^\d+\./', $line)) {
+//             if ($currentQuestion) {
+//                 $questions[] = $currentQuestion;
+//             }
+//             $currentQuestion = [
+//                 'text' => trim(substr($line, 3)),
+//                 'option' => [],
+//                 'correct_option' => null,
+//                 'marks' => 2, // Default marks per question
+//             ];
+//         } elseif (preg_match('/^[a-d]\./', $line)) {
+//             $currentQuestion['option'][] = trim(substr($line, 2));
+//         } elseif (str_contains($line, 'Answer:')) {
+//             $correctOption = strtolower(trim(str_replace('Answer:', '', $line)));
+//             $currentQuestion['correct_option'] = ord($correctOption) - ord('a') + 1; // Convert 'a' to 1, 'b' to 2, etc.
+//         }
+//     }
+//     if ($currentQuestion) {
+//         $questions[] = $currentQuestion;
+//     }
+//     return $questions;
+// }
+
+
 
 }
